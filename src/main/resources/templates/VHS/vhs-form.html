@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#strings.isEmpty(vhs.id) ? 'Cadastrar VHS' : 'Editar VHS'}">Formulário VHS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title mb-4" th:text="${#strings.isEmpty(vhs.id) ? 'Cadastrar Nova Fita VHS' : 'Editar Fita VHS'}">Formulário</h2>
+
+                <div th:if="${erro != null}" class="alert alert-danger" role="alert">
+                    <p th:text="${erro}"></p>
+                </div>
+
+                <form th:action="@{/vhs/save}" th:object="${vhs}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{disponivel}" value="true" />
+
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" id="titulo" th:field="*{titulo}" class="form-control" placeholder="Digite o título da fita" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imageURL" class="form-label">URL da Imagem</label>
+                        <input type="text" id="imageURL" th:field="*{imageURL}" class="form-control" placeholder="https://..." />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="diretor" class="form-label">Diretor</label>
+                        <input type="text" id="diretor" th:field="*{diretor}" class="form-control" placeholder="Nome do diretor" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <select id="categoria" th:field="*{categoria.id}" class="form-select">
+                            <option value="" disabled selected>Selecione uma categoria</option>
+                            <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nome}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" th:field="*{status}" class="form-select">
+                            <option value="DISPONIVEL">Disponível</option>
+                            <option value="EMPRESTADA">Emprestada</option>
+                            <option value="INDISPONIVEL">Indisponível</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dataCadastro" class="form-label">Data de Cadastro</label>
+                        <input type="date" id="dataCadastro" th:field="*{dataCadastro}" class="form-control" />
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <a href="/vhs" class="btn btn-secondary">Voltar para Listagem</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

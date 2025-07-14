@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Locadora VHS - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container mt-5 text-center">
+        <h1>Locadora de Fitas VHS</h1>
+        <p>Bem-vindo, <span th:text="${usuario.nome}">Usuário</span></p>
+
+        <div class="mt-4">
+            <a href="/vhs" class="btn btn-primary me-2">Ver Lista de Fitas</a>
+            <a href="/categorias/form" class="btn btn-primary me-2">Nova Categoria</a>
+            <a href="/vhs/form" class="btn btn-primary me-2">Cadastrar Nova Fita</a>
+        </div>
+    </div>
+
+</body>
+</html>

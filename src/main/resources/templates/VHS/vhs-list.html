@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Fitas VHS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-3">
+        <div th:if="${mensagem}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensagem}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+        <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${erro}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+    </div>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3">Fitas VHS</h1>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Título</th>
+                    <th>Diretor</th>
+                    <th>Categoria</th>
+                    <th>Data de Cadastro</th>
+                    <th>Status</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="fita : ${vhsList}">
+                    <td>
+                        <img th:src="${fita.imageURL}" alt="Imagem" width="80" class="img-thumbnail" th:if="${fita.imageURL != null}" />
+                    </td>
+                    <td th:text="${fita.titulo}">Título</td>
+                    <td th:text="${fita.diretor}">Diretor</td>
+                    <td th:text="${fita.categoria != null ? fita.categoria.nome : 'Sem categoria'}">Categoria</td>
+                    <td th:text="${#temporals.format(fita.dataCadastro, 'dd/MM/yyyy')}">Data</td>
+                    <td>
+                        <span class="badge bg-success" th:text="${fita.status}">Status</span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/vhs/edit/' + ${fita.id}}" class="btn btn-sm btn-warning" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/vhs/excluir/' + ${fita.id}}"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Tem certeza que deseja excluir essa fita? Essa ação será definitiva')"
+                           title="Excluir">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="mt-4">
+        <a class="btn btn-primary" th:href="@{/vhs/form}">Cadastrar Nova Fita</a>
+        <a href="/home" class="btn btn-primary me-2">Voltar para Home</a>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Locadora VHS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
+
+        <div th:if="${mensagem != null}" class="alert alert-danger text-center" th:text="${mensagem}"></div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="text" id="email" name="email" class="form-control" th:value="${email}" />
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" id="senha" name="senha" class="form-control" />
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <a th:href="@{/cadastro}">Cadastre-se</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
